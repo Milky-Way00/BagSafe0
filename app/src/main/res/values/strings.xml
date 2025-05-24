@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">BagSafe</string>
+    <string name="alarm_title">🚨 도난 경보 발생!</string>
+    <string name="alarm_text">휴대폰을 확인해주세요.</string>
+</resources>
