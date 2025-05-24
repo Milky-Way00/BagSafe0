@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="연결하시겠습니까?"
-        android:textSize="18sp"/>
+        android:textSize="25sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="네"
-            android:backgroundTint="#4CAF50"/>
+            android:textSize="18dp"
+            android:backgroundTint="#4CAF50"
+            android:background="@drawable/share_round"/>
 
         <!-- 아니요 버튼 -->
         <Button
@@ -35,7 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="아니요"
-            android:backgroundTint="#F44336"/>
+            android:textSize="18dp"
+            android:backgroundTint="#F44336"
+            android:background="@drawable/share_round"/>
 
     </LinearLayout>
 

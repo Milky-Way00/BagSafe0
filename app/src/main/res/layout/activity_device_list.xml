@@ -8,14 +8,17 @@
     <Button
         android:id="@+id/btn_show_paired"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="페어링된 기기 보기"/>
+        android:layout_height="60dp"
+        android:background="@drawable/share_round"
+        android:backgroundTint="#C0C0C0"
+        android:text="페어링된 기기 보기"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:text="페어링할 기기를 선택하세요" />
 
 

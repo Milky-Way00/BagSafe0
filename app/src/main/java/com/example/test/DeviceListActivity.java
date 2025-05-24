@@ -110,7 +110,7 @@ public class DeviceListActivity extends AppCompatActivity {
                         deviceAdapter.add(device.getName() + "\n" + device.getAddress());
                     }
                 } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                    Toast.makeText(DeviceListActivity.this, "검색 완료", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(DeviceListActivity.this, "검색 완료", Toast.LENGTH_SHORT).show();
                 }
             }
         };

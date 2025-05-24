@@ -149,23 +149,6 @@ public class BluetoothService {
         monitoringThread.start();
     }
 
-//    public void stopMonitoring() {
-//        new Thread(() ->  {
-////            isRunning = false;
-//            if (monitoringThread != null) {
-//                monitoringThread.interrupt();
-//
-//                while (!monitoringThread.isInterrupted()) {}
-//                System.out.println("인터럽트됐두");
-//                System.out.println("인터럽트: " + monitoringThread.isInterrupted());
-//
-//                disconnect();
-//            }
-//        }).start();
-////        monitoringThread.interrupt();
-////        disconnect();
-//    }
-
 
     public BluetoothSocket getSocket() {
         return socket;

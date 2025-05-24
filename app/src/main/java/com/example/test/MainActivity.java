@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+
     private void checkReceivedData() {
         new Thread(() -> {
             while (true) {

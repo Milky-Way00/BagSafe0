@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="@color/white"
+    android:padding="20dp">
 
     <!-- 이미지 뷰: 화면 상단에 고정 -->
 
@@ -17,9 +18,9 @@
         android:id="@+id/imageView5"
         android:layout_width="230dp"
         android:layout_height="230dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="180dp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/ic_waring"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,29 +29,27 @@
 
     <Button
         android:id="@+id/btn_connect"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
         android:backgroundTint="#4CAF50"
         android:text="장치 연결"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
+        android:background="@drawable/share_round"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imageView5"
-        app:layout_constraintVertical_bias="0.481" />
+        />
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_width="380dp"
+        android:layout_height="120dp"
         android:text="소매치기 경보기"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/btn_connect"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView5"
-        app:layout_constraintVertical_bias="0.503" />
+        android:textColor="#000000"
+        android:textSize="40sp"
+        android:textAlignment="center"
+        android:gravity="center" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

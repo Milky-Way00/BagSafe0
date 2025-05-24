@@ -110,6 +110,7 @@ public class ControlActivity extends AppCompatActivity {
             Button btnPower = findViewById(R.id.btn_power);
             btnPower.setText(isEnabled ? "시스템 끄기" : "시스템 켜기");
             btnPower.setBackgroundColor(isEnabled ? Color.RED : Color.GREEN);
+            
         });
     }
 
