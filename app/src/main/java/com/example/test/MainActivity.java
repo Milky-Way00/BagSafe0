@@ -123,46 +123,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void startBluetoothDataReceiver() {
-//        new Thread(() -> {
-//            while (true) {
-//                if (BluetoothService.socket != null && BluetoothService.socket.isConnected()) {
-//                    try {
-//                        InputStream in = BluetoothService.socket.getInputStream();
-//                        InputStreamReader inputStreamReader = new InputStreamReader(in);
-//                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//
-//                        // UI 업데이트
-//                        String receivedData;
-//                        while ((receivedData = bufferedReader.readLine()) != null) { // 줄 단위로 읽기
-//                            final String finalData = receivedData.trim(); // "\r\n" 제거
-//                            runOnUiThread(() -> {
-//                                if (finalData.equals("ALARM")) {
-//                                    Toast.makeText(this, "알람 발생!", Toast.LENGTH_SHORT).show();
-//                                    Log.d("BT_ALARM", "수신: " + finalData);
-//
-//                                    NotificationService notificationService = new NotificationService(this);
-//                                    notificationService.showNotification("고구마", "고구마찌개");
-//                                }
-//                            });
-//                        }
-//
-//                    } catch (IOException e) {
-//                        System.out.println(e.getMessage());
-//                        throw new RuntimeException(e);
-//                    }
-//
-//                }
-//
-//                try {
-//                    Thread.sleep(100); // CPU 부하 줄이기
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }).start();
-    }
-
     private void checkReceivedData() {
         new Thread(() -> {
             while (true) {
