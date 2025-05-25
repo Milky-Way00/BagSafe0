@@ -5,9 +5,11 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +19,7 @@ import java.util.Set;
 public class PairedDevicesActivity extends AppCompatActivity {
 
     private ListView listPairedDevices;
-    private ArrayAdapter<String> pairedDeviceAdapter;
+    private ArrayAdapter<BluetoothDevice> pairedDeviceAdapter;
     private BluetoothAdapter bluetoothAdapter;
 
     @Override
@@ -26,23 +28,50 @@ public class PairedDevicesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_paired_devices);
 
         listPairedDevices = findViewById(R.id.list_paired_devices);
-        pairedDeviceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+
+        pairedDeviceAdapter = new ArrayAdapter<>(this, R.layout.list_item_device){
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                BluetoothDevice device = getItem(position);
+                ((TextView) view).setText(device.getName()); // 이름만 표시
+                return view;
+            }
+
+        };
+
         listPairedDevices.setAdapter(pairedDeviceAdapter);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         loadPairedDevices();
 
+
+//        pairedDeviceAdapter = new ArrayAdapter<>(
+//                this,
+//                R.layout.list_item_device, // 커스텀 레이아웃 사용
+//                R.id.device_name           // 데이터를 표시할 TextView ID
+//        );
+
+
+
+
+
         listPairedDevices.setOnItemClickListener((parent, view, position, id) -> {
-            String deviceInfo = pairedDeviceAdapter.getItem(position);
-            String deviceAddress = deviceInfo.split("\n")[1];
-            showConnectionDialog(deviceAddress);
+
+            BluetoothDevice device = pairedDeviceAdapter.getItem(position);
+
+//            String deviceInfo = pairedDeviceAdapter.getItem(position);
+//            String deviceAddress = deviceInfo.split("\n")[1];
+            showConnectionDialog(device.getAddress());
         });
     }
 
     private void loadPairedDevices() {
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+
+
         for (BluetoothDevice device : pairedDevices) {
-            pairedDeviceAdapter.add(device.getName() + "\n" + device.getAddress());
+              pairedDeviceAdapter.add(device);
         }
     }
 

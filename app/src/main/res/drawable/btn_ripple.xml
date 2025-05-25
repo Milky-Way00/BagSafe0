@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/white">
-    <item android:drawable="@drawable/btn_ok"/>
+    android:color="#dedcdc">
+
+
+    <!-- 기본 상태 -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="10dp" />
+            <solid android:color="#bababa" />>
+        </shape>>
+    </item>
+
 </ripple>

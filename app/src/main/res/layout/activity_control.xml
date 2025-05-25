@@ -28,47 +28,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.06" />
+        app:layout_constraintVertical_bias="0.07" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_power"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="시스템 켜기"
+        android:layout_height="55dp"
+        android:text="알림 켜기"
         android:textSize="20sp"
+        android:textColor="#000000"
+        android:background="@drawable/btn_able"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="300dp"
-        app:layout_constraintVertical_bias="0.5"
+        app:layout_constraintVertical_bias="0.6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-<!--    android:backgroundTint="#FF0000"-->
-<!--    android:background="@drawable/btn_ripple"-->
-<!--    android:enabled="false"-->
-    <Button
-        android:id="@+id/btn_reset"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#C0C0C0"
-        android:background="@drawable/share_round"
-        android:text="알람 리셋"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="400dp"
-        app:layout_constraintVertical_bias="0.65"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <Button
         android:id="@+id/btn_disconnect"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/share_round"
-        android:backgroundTint="#FF5722"
+        android:layout_height="55dp"
+        android:background="@drawable/btn_disable"
         android:text="연결 해제"
         android:textSize="20sp"
+        android:textColor="#000000"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="500dp"
         app:layout_constraintVertical_bias="0.8"

@@ -1,6 +1,7 @@
 package com.example.test;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -10,9 +11,13 @@ import android.os.Vibrator;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
+import android.view.View;
 
 public class ControlActivity extends AppCompatActivity {
     private String deviceAddress;
+
+    private boolean btn_color = true;
+
     private boolean isSystemEnabled = false;
 
     @Override
@@ -24,13 +29,38 @@ public class ControlActivity extends AppCompatActivity {
         deviceAddress = getIntent().getStringExtra("DEVICE_ADDRESS");
 
         Button btnPower = findViewById(R.id.btn_power);
-        Button btnReset = findViewById(R.id.btn_reset);
         Button btnDisconnect = findViewById(R.id.btn_disconnect);
 
         btnPower.setOnClickListener(v -> {
             isSystemEnabled = !isSystemEnabled;
             BluetoothService.getInstance().sendCommand(isSystemEnabled ? "1" : "0");
-            updateButtonState(isSystemEnabled);
+
+            btn_color = !btn_color;
+
+            //Button btnPower = findViewById(R.id.btn_power);
+
+            if (btn_color) {
+                btnPower.setBackground(
+                        ContextCompat.getDrawable(
+                                ControlActivity.this,
+
+                                R.drawable.btn_able
+                        )
+                );
+
+                btnPower.setText("알림 켜기");
+
+            } else {
+                btnPower.setBackground(
+                        ContextCompat.getDrawable(
+                                ControlActivity.this,
+                                R.drawable.btn_disable
+                        )
+                );
+
+                btnPower.setText("알림 끄기");
+
+            }
 
             try {
                 Vibrator vibrator = (Vibrator) NotificationServiceForMainActivity.getInstanceForOtherActivity().getContext().getSystemService(VIBRATOR_SERVICE);
@@ -43,13 +73,9 @@ public class ControlActivity extends AppCompatActivity {
                 System.out.println("메인 액티비티 알림 서비스 생성되지 않음!!!");
                 e.printStackTrace();
             }
+
         });
 
-        btnReset.setOnClickListener(v -> {
-            BluetoothService.getInstance().sendCommand("0");
-            isSystemEnabled = false;
-            updateButtonState(false);
-        });
 
         // 연결 해제 버튼
         btnDisconnect.setOnClickListener(v -> sendStopAlarmCommand());
@@ -87,6 +113,7 @@ public class ControlActivity extends AppCompatActivity {
 //        BluetoothService.getInstance().sendCommand("0"); // 부저 중지
         try {
             NotificationServiceForMainActivity.stopAlarm(this).send();
+            Toast.makeText(this, "연결이 해제되었습니다.", Toast.LENGTH_SHORT).show();
         } catch (PendingIntent.CanceledException e) {
             throw new RuntimeException(e);
             // TODO: 예외 처리
@@ -104,18 +131,4 @@ public class ControlActivity extends AppCompatActivity {
 //        finish(); // 현재 액티비티 종료
     }
 
-    // 버튼 상태 업데이트
-    private void updateButtonState(boolean isEnabled) {
-        runOnUiThread(() -> {
-            Button btnPower = findViewById(R.id.btn_power);
-            btnPower.setText(isEnabled ? "시스템 끄기" : "시스템 켜기");
-            btnPower.setBackgroundColor(isEnabled ? Color.RED : Color.GREEN);
-            
-        });
-    }
-
-    private void sendCommandToDevice(String cmd) {
-        // 블루투스 명령 전송 구현
-        BluetoothService.getInstance().sendCommand(cmd);
-    }
 }
