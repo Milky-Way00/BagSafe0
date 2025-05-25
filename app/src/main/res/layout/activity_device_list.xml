@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="230dp"
+        android:layout_height="230dp"
+        android:scaleType="centerCrop"
+        android:alpha="0.5"
+        android:src="@drawable/ic_waringsat"
+        android:layout_gravity="center"/>
 
     <Button
         android:id="@+id/btn_show_paired"
@@ -16,8 +26,9 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="25sp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:textSize="28sp"
         android:divider="#000"
         android:text="페어링할 기기를 선택하세요"
         android:textColor="#000000"/>
@@ -28,6 +39,7 @@
         android:id="@+id/list_devices"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="95dp"
         android:dividerHeight="2dp"/>
 
-</LinearLayout>
+</FrameLayout>

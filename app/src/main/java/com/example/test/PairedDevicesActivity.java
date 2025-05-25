@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,8 @@ public class PairedDevicesActivity extends AppCompatActivity {
                 ((TextView) view).setText(device.getName()); // 이름만 표시
                 return view;
             }
+
+
 
         };
 

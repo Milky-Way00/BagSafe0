@@ -17,14 +17,15 @@
     android:gravity="center"
     android:padding="16dp">
 
-
-    <ImageView
-        android:id="@+id/imageView5"
+<!--    이미지 버튼을 눌러도 알림을 끄고 킬수있게 해보기-->
+    <ImageButton
+        android:id="@+id/btn_notification"
         android:layout_width="230dp"
         android:layout_height="230dp"
         android:layout_marginStart="75dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_waring"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
