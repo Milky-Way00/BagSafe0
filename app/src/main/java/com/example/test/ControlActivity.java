@@ -28,16 +28,16 @@ public class ControlActivity extends AppCompatActivity {
 
         deviceAddress = getIntent().getStringExtra("DEVICE_ADDRESS");
 
-        Button btnNotiFication = findViewById(R.id.btn_notification);
         Button btnPower = findViewById(R.id.btn_power);
         Button btnDisconnect = findViewById(R.id.btn_disconnect);
-
 
         btnPower.setOnClickListener(v -> {
             isSystemEnabled = !isSystemEnabled;
             BluetoothService.getInstance().sendCommand(isSystemEnabled ? "1" : "0");
 
             btn_color = !btn_color;
+
+            //Button btnPower = findViewById(R.id.btn_power);
 
             if (btn_color) {
                 btnPower.setBackground(
