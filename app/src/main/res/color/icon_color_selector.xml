@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+        <!-- 눌린 상태 -->
+        <item android:color="@color/black" android:state_pressed="true"/>
+        <!-- 기본 상태 -->
+        <item android:color="#A9A9A9"/>
+    </selector>

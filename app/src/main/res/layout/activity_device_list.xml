@@ -15,20 +15,13 @@
         android:src="@drawable/ic_waringsat"
         android:layout_gravity="center"/>
 
-    <Button
-        android:id="@+id/btn_show_paired"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/btn_ripple"
-        android:text="페어링된 기기 보기"
-        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:textSize="28sp"
+        android:layout_gravity="top"
+        android:textSize="27sp"
         android:divider="#000"
         android:text="페어링할 기기를 선택하세요"
         android:textColor="#000000"/>
@@ -39,7 +32,32 @@
         android:id="@+id/list_devices"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="95dp"
-        android:dividerHeight="2dp"/>
+        android:layout_marginTop="50dp"
+        android:dividerHeight="2dp"
+        android:divider="@null"/>
+
+
+    <ImageButton
+        android:id="@+id/btn_show_pairing"
+        android:layout_width="206dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom"
+        android:src="@drawable/ic_bluetoothpairing"
+        android:tint="@color/black"
+        android:background="@drawable/btn_ripple"
+        android:stateListAnimator="@null"
+        android:textSize="20sp"/>
+
+<!--    android:tint="@color/icon_color_selector"-->
+    <ImageButton
+        android:id="@+id/btn_show_paired"
+        android:layout_width="206dp"
+        android:layout_height="56dp"
+        android:layout_gravity="right|bottom"
+        android:src="@drawable/ic_bluetoothpaired"
+        android:tint="#bababa"
+        android:background="@drawable/btn_ripple"
+        android:stateListAnimator="@null"
+        android:textSize="20sp"/>
 
 </FrameLayout>

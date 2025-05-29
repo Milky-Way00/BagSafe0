@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -46,18 +47,8 @@ public class PairedDevicesActivity extends AppCompatActivity {
         listPairedDevices.setAdapter(pairedDeviceAdapter);
 
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         loadPairedDevices();
-
-
-//        pairedDeviceAdapter = new ArrayAdapter<>(
-//                this,
-//                R.layout.list_item_device, // 커스텀 레이아웃 사용
-//                R.id.device_name           // 데이터를 표시할 TextView ID
-//        );
-
-
-
-
 
         listPairedDevices.setOnItemClickListener((parent, view, position, id) -> {
 
@@ -67,6 +58,23 @@ public class PairedDevicesActivity extends AppCompatActivity {
 //            String deviceAddress = deviceInfo.split("\n")[1];
             showConnectionDialog(device.getAddress());
         });
+
+        // "페어링된 기기 보기" 버튼 추가
+        ImageButton btnShowPaired = findViewById(R.id.btn_show_paired);
+        btnShowPaired.setOnClickListener(v -> {
+            Intent intent = new Intent(this, PairedDevicesActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        });
+
+        // "페어링된 기기 보기" 버튼 추가
+        ImageButton btnShowPairing = findViewById(R.id.btn_show_pairing);
+        btnShowPairing.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DeviceListActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        });
+
     }
 
     private void loadPairedDevices() {

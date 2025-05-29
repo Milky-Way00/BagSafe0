@@ -78,8 +78,24 @@ public class ControlActivity extends AppCompatActivity {
 
 
         // 연결 해제 버튼
-        btnDisconnect.setOnClickListener(v -> sendStopAlarmCommand());
+        btnDisconnect.setOnClickListener(v -> {
+            sendStopAlarmCommand();
+        });
     }
+
+//                try {
+//        Vibrator vibrator = (Vibrator) NotificationServiceForMainActivity.getInstanceForOtherActivity().getContext().getSystemService(VIBRATOR_SERVICE);
+//
+//        if (vibrator != null) {
+//            vibrator.cancel();
+//        }
+//    } catch (Exception e) {
+////                throw new RuntimeException(e);
+//        System.out.println("메인 액티비티 알림 서비스 생성되지 않음!!!");
+//        e.printStackTrace();
+//    }
+//    sendStopAlarmCommand();
+//});
 
     // 블루투스 연결 해제 메서드
     private void disconnectBluetooth() {

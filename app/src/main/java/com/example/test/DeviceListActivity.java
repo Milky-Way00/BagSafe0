@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,12 +67,23 @@ public class DeviceListActivity extends AppCompatActivity {
         // 주변 기기 검색 시작
         startDiscovery();
 
+        // "페어링 할수있는 기기 보기" 버튼 추가
+        ImageButton btnShowPairing = findViewById(R.id.btn_show_pairing);
+        btnShowPairing.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DeviceListActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+        });
+
         // "페어링된 기기 보기" 버튼 추가
-        Button btnShowPaired = findViewById(R.id.btn_show_paired);
+        ImageButton btnShowPaired = findViewById(R.id.btn_show_paired);
         btnShowPaired.setOnClickListener(v -> {
             Intent intent = new Intent(this, PairedDevicesActivity.class);
             startActivity(intent);
+            overridePendingTransition(0, 0);
         });
+
+
 
         // 장치 클릭 시 다이얼로그 표시
         listDevices.setOnItemClickListener((parent, view, position, id) -> {

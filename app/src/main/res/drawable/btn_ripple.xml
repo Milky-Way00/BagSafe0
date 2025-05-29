@@ -6,9 +6,11 @@
     <!-- 기본 상태 -->
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="10dp" />
-            <solid android:color="#bababa" />>
+            <solid android:color="#efefef" />>
         </shape>>
     </item>
+
+<!--    <corners android:radius="10dp" />-->
+<!--    <solid android:color="#bababa"-->
 
 </ripple>
