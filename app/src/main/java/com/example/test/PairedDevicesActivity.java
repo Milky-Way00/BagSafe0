@@ -40,8 +40,6 @@ public class PairedDevicesActivity extends AppCompatActivity {
                 return view;
             }
 
-
-
         };
 
         listPairedDevices.setAdapter(pairedDeviceAdapter);
@@ -54,23 +52,22 @@ public class PairedDevicesActivity extends AppCompatActivity {
 
             BluetoothDevice device = pairedDeviceAdapter.getItem(position);
 
-//            String deviceInfo = pairedDeviceAdapter.getItem(position);
-//            String deviceAddress = deviceInfo.split("\n")[1];
             showConnectionDialog(device.getAddress());
+        });
+
+        // "페어링할수있는 기기 보기" 버튼 추가
+        ImageButton btnShowPairing = findViewById(R.id.btn_show_pairing);
+        btnShowPairing.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DeviceListActivity.class);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
+            finish();
         });
 
         // "페어링된 기기 보기" 버튼 추가
         ImageButton btnShowPaired = findViewById(R.id.btn_show_paired);
         btnShowPaired.setOnClickListener(v -> {
             Intent intent = new Intent(this, PairedDevicesActivity.class);
-            startActivity(intent);
-            overridePendingTransition(0, 0);
-        });
-
-        // "페어링된 기기 보기" 버튼 추가
-        ImageButton btnShowPairing = findViewById(R.id.btn_show_pairing);
-        btnShowPairing.setOnClickListener(v -> {
-            Intent intent = new Intent(this, DeviceListActivity.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
         });

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import com.example.test.R;
@@ -38,15 +39,17 @@ public class DeviceListActivity extends AppCompatActivity {
     private BluetoothAdapter bluetoothAdapter;
     private BroadcastReceiver receiver;
 
+    private Set<String> discoveredDeviceAddresses = new HashSet<>(); // 중복 방지를 위한 Set 추가
+
     @Override
-
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
         listDevices = findViewById(R.id.list_devices);
+
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         deviceAdapter = new ArrayAdapter<BluetoothDevice>(this, R.layout.list_item_device) {
             @Override
@@ -60,12 +63,13 @@ public class DeviceListActivity extends AppCompatActivity {
 
         listDevices.setAdapter(deviceAdapter);
 
-        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         // 페어링된 기기 로드
         loadPairedDevices();
 
         // 주변 기기 검색 시작
         startDiscovery();
+
+
 
         // "페어링 할수있는 기기 보기" 버튼 추가
         ImageButton btnShowPairing = findViewById(R.id.btn_show_pairing);
@@ -81,6 +85,7 @@ public class DeviceListActivity extends AppCompatActivity {
             Intent intent = new Intent(this, PairedDevicesActivity.class);
             startActivity(intent);
             overridePendingTransition(0, 0);
+            finish();
         });
 
 
@@ -100,6 +105,7 @@ public class DeviceListActivity extends AppCompatActivity {
                 showPairingDialog(device.getAddress());
             }
         });
+
     }
 
     private void loadPairedDevices() {
@@ -111,6 +117,9 @@ public class DeviceListActivity extends AppCompatActivity {
 
     // 주변 기기 검색 시작
     private void startDiscovery() {
+        // 검색 시작 전 중복 체크용 Set 초기화
+        discoveredDeviceAddresses.clear();
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN)
                 != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this, "권한이 없습니다.", Toast.LENGTH_SHORT).show();
@@ -138,8 +147,14 @@ public class DeviceListActivity extends AppCompatActivity {
                             return; // 리스트에 추가하지 않음
                         }
 
+                        // ✅ MAC 주소로 중복 체크
+                        String deviceAddress = device.getAddress();
+                        if (!discoveredDeviceAddresses.contains(deviceAddress)) {
+                            discoveredDeviceAddresses.add(deviceAddress); // 중복 방지 Set에 추가
+                            deviceAdapter.add(device); // 어댑터에 추가
+                        }
 
-                        deviceAdapter.add(device);
+//                        deviceAdapter.add(device);
                     }
                 } else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
                     //Toast.makeText(DeviceListActivity.this, "검색 완료", Toast.LENGTH_SHORT).show();
@@ -217,9 +232,11 @@ public class DeviceListActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
         if (receiver != null) {
             unregisterReceiver(receiver);
         }
+
     }
 
 

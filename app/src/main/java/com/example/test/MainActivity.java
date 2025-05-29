@@ -178,7 +178,6 @@ public class MainActivity extends AppCompatActivity {
             //deviceAdapter.clear();
             //deviceAdapter.addAll(deviceList);
         } catch (SecurityException e) {
-            Toast.makeText(this, "블루투스 권한 오류 발생", Toast.LENGTH_SHORT).show();
             Log.e("BluetoothError", "SecurityException: " + e.getMessage());
         }
     }
