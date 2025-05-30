@@ -30,6 +30,7 @@ import java.lang.reflect.Method;
 import android.util.Log;
 import androidx.core.content.ContextCompat;
 import java.lang.reflect.InvocationTargetException;
+import android.os.Handler;
 
 
 public class DeviceListActivity extends AppCompatActivity {
@@ -39,10 +40,11 @@ public class DeviceListActivity extends AppCompatActivity {
     private BluetoothAdapter bluetoothAdapter;
     private BroadcastReceiver receiver;
 
+    private boolean isDiscovering = false;
+
     private Set<String> discoveredDeviceAddresses = new HashSet<>(); // 중복 방지를 위한 Set 추가
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
@@ -64,7 +66,7 @@ public class DeviceListActivity extends AppCompatActivity {
         listDevices.setAdapter(deviceAdapter);
 
         // 페어링된 기기 로드
-        loadPairedDevices();
+//        loadPairedDevices();
 
         // 주변 기기 검색 시작
         startDiscovery();
@@ -75,8 +77,10 @@ public class DeviceListActivity extends AppCompatActivity {
         ImageButton btnShowPairing = findViewById(R.id.btn_show_pairing);
         btnShowPairing.setOnClickListener(v -> {
             Intent intent = new Intent(this, DeviceListActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             overridePendingTransition(0, 0);
+            finish(); // 현재 액티비티 종료
         });
 
         // "페어링된 기기 보기" 버튼 추가
@@ -86,6 +90,17 @@ public class DeviceListActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(0, 0);
             finish();
+        });
+
+        ImageButton btnreload = findViewById(R.id.btn_reload);
+        btnreload.setOnClickListener(v -> {
+            Toast.makeText(DeviceListActivity.this, "재검색 중.....", Toast.LENGTH_SHORT).show();
+            if (isDiscovering) {
+                Toast.makeText(this, "이미 검색 중입니다", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            refreshDiscovery();
         });
 
 
@@ -108,6 +123,33 @@ public class DeviceListActivity extends AppCompatActivity {
 
     }
 
+    private void refreshDiscovery() {
+        // 1. 현재 검색 중이면 취소
+        if (bluetoothAdapter.isDiscovering()) {
+            bluetoothAdapter.cancelDiscovery();
+        }
+
+        // 2. 브로드캐스트 리시버 해제
+        if (receiver != null) {
+            try {
+                unregisterReceiver(receiver);
+            } catch (IllegalArgumentException e) {
+                Log.e("BT", "리시버 등록 해제 오류", e);
+            }
+            receiver = null;
+        }
+
+        // 3. 목록 초기화
+        deviceAdapter.clear();
+        discoveredDeviceAddresses.clear();
+
+        // 4. 1초 후 새 검색 시작 (필수!)
+        new Handler().postDelayed(() -> {
+            startDiscovery();
+//            Toast.makeText(DeviceListActivity.this, "재검색 시작", Toast.LENGTH_SHORT).show();
+        }, 1000); // 최소 500ms 지연
+    }
+
     private void loadPairedDevices() {
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
         for (BluetoothDevice device : pairedDevices) {
@@ -119,6 +161,8 @@ public class DeviceListActivity extends AppCompatActivity {
     private void startDiscovery() {
         // 검색 시작 전 중복 체크용 Set 초기화
         discoveredDeviceAddresses.clear();
+
+        deviceAdapter.clear();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -162,6 +206,12 @@ public class DeviceListActivity extends AppCompatActivity {
             }
         };
         registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshDiscovery(); // 화면이 포커스를 얻을 때마다 검색 시작
     }
 
     // 페어링 다이얼로그 표시

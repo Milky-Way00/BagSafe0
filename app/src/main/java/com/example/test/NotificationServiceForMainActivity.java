@@ -67,7 +67,7 @@ public class NotificationServiceForMainActivity {
         PendingIntent stopAlarmIntent = stopAlarm(context);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_alarm)  // 상태바에 표시될 작은 아이콘
+                .setSmallIcon(R.drawable.notification_important_24dp)  // 상태바에 표시될 작은 아이콘
 //                .setsmall
 //                .setLargeIcon(R.drawable.ic_alarm)
                 .setContentTitle(title)

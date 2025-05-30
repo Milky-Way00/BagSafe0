@@ -22,10 +22,11 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:textSize="27sp"
+        android:fontFamily="@font/nanumbold"
+        android:gravity="center_vertical"
+        android:textSize="30dp"
         android:textColor="#000000"
-        android:text="페어링된 기기 선택" />
-
+        android:text="Paired"/>
 
     <ListView
         android:id="@+id/list_paired_devices"
@@ -41,7 +42,7 @@
         android:id="@+id/btn_show_pairing"
         android:layout_width="206dp"
         android:layout_height="56dp"
-        android:src="@drawable/ic_bluetoothpairing"
+        android:src="@drawable/bluetooth_searching_40dp"
         android:tint="#bababa"
         android:background="@drawable/btn_ripple"
         android:layout_gravity="bottom"
@@ -52,12 +53,11 @@
         android:id="@+id/btn_show_paired"
         android:layout_width="206dp"
         android:layout_height="56dp"
-        android:src="@drawable/ic_bluetoothpaired"
+        android:src="@drawable/bluetooth_connected_40dp"
         android:tint="@color/black"
         android:background="@drawable/btn_ripple"
         android:layout_gravity="right|bottom"
         android:stateListAnimator="@null"
         android:textSize="20sp"/>
-
 
 </FrameLayout>
