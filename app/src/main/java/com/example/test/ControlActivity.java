@@ -49,8 +49,9 @@ public class ControlActivity extends AppCompatActivity {
                 );
 
                 btnPower.setText("알림 켜기");
-
+                PersistentNotificationService.cancelNotification(this); // 알림 끄기
             } else {
+
                 btnPower.setBackground(
                         ContextCompat.getDrawable(
                                 ControlActivity.this,
@@ -59,7 +60,7 @@ public class ControlActivity extends AppCompatActivity {
                 );
 
                 btnPower.setText("알림 끄기");
-
+                new PersistentNotificationService(ControlActivity.this).showNotification(this); // 알림 표시
             }
 
             try {
@@ -79,23 +80,10 @@ public class ControlActivity extends AppCompatActivity {
 
         // 연결 해제 버튼
         btnDisconnect.setOnClickListener(v -> {
+            PersistentNotificationService.cancelNotification(this);
             sendStopAlarmCommand();
         });
     }
-
-//                try {
-//        Vibrator vibrator = (Vibrator) NotificationServiceForMainActivity.getInstanceForOtherActivity().getContext().getSystemService(VIBRATOR_SERVICE);
-//
-//        if (vibrator != null) {
-//            vibrator.cancel();
-//        }
-//    } catch (Exception e) {
-////                throw new RuntimeException(e);
-//        System.out.println("메인 액티비티 알림 서비스 생성되지 않음!!!");
-//        e.printStackTrace();
-//    }
-//    sendStopAlarmCommand();
-//});
 
     // 블루투스 연결 해제 메서드
     private void disconnectBluetooth() {
@@ -105,6 +93,8 @@ public class ControlActivity extends AppCompatActivity {
                 runOnUiThread(() ->
                         Toast.makeText(this, "연결이 해제되었습니다.", Toast.LENGTH_SHORT).show()
                 );
+
+                PersistentNotificationService.cancelNotification(this); // 알림 취소
 
                 // 메인 화면으로 이동
                 Intent intent = new Intent(this, MainActivity.class);
@@ -134,17 +124,6 @@ public class ControlActivity extends AppCompatActivity {
             throw new RuntimeException(e);
             // TODO: 예외 처리
         }
-
-//        BluetoothService.getInstance().stopMonitoring();
-
-//        BluetoothService.getInstance().disconnect();
-
-
-//        // 메인 화면으로 이동 (스택 정리)
-//        Intent intent = new Intent(this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent);
-//        finish(); // 현재 액티비티 종료
     }
 
 }
