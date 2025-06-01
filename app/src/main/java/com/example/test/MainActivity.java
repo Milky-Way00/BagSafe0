@@ -109,6 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 알림 클릭으로 인한 인텐트인지 확인
         if (intent != null && "STOP_ALARM".equals(intent.getAction())) {
+            PersistentNotificationService.cancelNotification(this);
             BluetoothService.getInstance().sendCommand("0");
             BluetoothService.getInstance().disconnect();
 
